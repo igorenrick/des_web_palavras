@@ -4,4 +4,6 @@ module.exports = defineConfig({
   transpileDependencies: true,
   outputDir: '../public',
   publicPath: '/',
+  runtimeCompiler: true
 });
+
