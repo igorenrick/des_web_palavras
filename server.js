@@ -21,7 +21,7 @@ const Palavra = mongoose.model('Palavra', PalavraSchema);
 
 const app = express();
 app.use(cors());
-app.use('/adivinhacao-app', express.static('adivinhacao-app'));
+app.use('/adivinhacao-app', express.static('public/adivinhacao-app')); // Altere esta linha
 app.use(express.static('public'));
 
 const server = http.createServer(app);
@@ -101,12 +101,12 @@ ioWebSocket.on('connection', (socket) => {
         let acertou = false;
         let i = 0;
         let indiceMascarada = 0;
-    
+
         while (i < palavraSecreta.length) {
             if (/[a-zA-Z]/.test(palavraSecreta[i])) {
                 const letraNormalizadaSecreta = palavraSecreta[i].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
                 const letraNormalizadaTentativa = letra.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        
+
                 if (letraNormalizadaSecreta === letraNormalizadaTentativa) {
                     palavraMascarada[indiceMascarada] = palavraSecreta[i];
                     acertou = true;
@@ -120,10 +120,10 @@ ioWebSocket.on('connection', (socket) => {
             }
             i++;
         }
-    
-    
-    
-    
+
+
+
+
         if (!acertou) {
             tentativas--;
         }
