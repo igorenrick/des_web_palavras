@@ -1,4 +1,5 @@
 # adivinhacao-app
+Projeto VUE para o trabalho do Jogo de Adivinhação de Palavras
 
 ## Project setup
 ```
