@@ -129,7 +129,17 @@ ioWebSocket.on('connection', (socket) => {
         }
 
         if (tentativas <= 0 || todasLetrasPreenchidas(palavraMascarada)) {
-            socket.emit('resultado', todasLetrasPreenchidas(palavraMascarada));
+            if (todasLetrasPreenchidas(palavraMascarada)) {
+                socket.emit('atualizar', {
+                    dica,
+                    palavra: palavraSecreta,
+                    tentativas,
+                });
+            }
+            socket.emit('resultado', {
+                vitoria: todasLetrasPreenchidas(palavraMascarada),
+                palavraCompleta: palavraSecreta
+            });
             await sortearPalavra();
             socket.emit('atualizar', {
                 dica,
@@ -143,6 +153,8 @@ ioWebSocket.on('connection', (socket) => {
                 tentativas,
             });
         }
+
+
     });
 
 
