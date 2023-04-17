@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start_nodemon": "nodemon server.js",
-    "start": "cd adivinhacao-app && npm run build && cd .. && nodemon server.js"
+    "start": "cd adivinhacao-app && npm run build && cd .. && nodemon server.js",
+    "build": "cd adivinhacao-app && vue-cli-service build && cd ..",
+    "postinstall": "cd adivinhacao-app && npm install && cd .."
+
   },
   "repository": {
     "type": "git",
@@ -24,10 +27,21 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.3",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "core-js": "^3.8.3",
+    "socket.io-client": "^4.6.1",
+    "vue": "^3.2.13",
+    "vue-router": "^4.1.6",
+    "@vue/cli-service": "~5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-service": "^5.0.8",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3"
   }
 }
