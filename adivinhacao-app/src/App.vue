@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Jogo de Adivinhação</h1>
+    <h1>Jogo da Divinhação</h1>
     <p>Dica: {{ dica }}</p>
     <p>Palavra: {{ palavraMascarada }}</p>
     <p>Tentativas restantes: {{ tentativas }}</p>
