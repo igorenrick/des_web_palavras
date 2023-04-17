@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start_nodemon": "nodemon server.js",
-    "start": "cd adivinhacao-app && npm run build && cd .. && nodemon server.js"
-
+    "start": "cd adivinhacao-app && npm run build && cd .. && nodemon server.js",
+    "build": "cd adivinhacao-app && vue-cli-service build && cd .."
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
     "nodemon": "^2.0.22"
   }
 }
