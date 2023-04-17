@@ -21,6 +21,7 @@ const Palavra = mongoose.model('Palavra', PalavraSchema);
 
 const app = express();
 app.use(cors());
+app.use('/adivinhacao-app', express.static('adivinhacao-app'));
 app.use(express.static('public'));
 
 const server = http.createServer(app);
