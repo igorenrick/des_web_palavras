@@ -28,19 +28,19 @@ const io = socketIO(server);
 
 // Inicializar servidor WEB na porta 4000
 server.listen(4000, () => {
-  console.log('Servidor WEB rodando na porta 4000');
+    console.log('Servidor WEB rodando na porta 4000');
 });
 
 // Inicializar servidor WebSocket na porta 10000
 const websocketServer = http.createServer();
 const ioWebSocket = socketIO(websocketServer, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+    },
 });
 websocketServer.listen(10000, () => {
-  console.log('Servidor WebSocket rodando na porta 10000');
+    console.log('Servidor WebSocket rodando na porta 10000');
 });
 
 // Implementar rotas e APIs
@@ -64,6 +64,12 @@ app.get('/lista', async (req, res) => {
     res.json(palavras);
 });
 
+// Função auxiliar para verificar se todas as letras foram preenchidas
+function todasLetrasPreenchidas(palavraMascarada) {
+    return palavraMascarada.every(letra => letra !== '_');
+}
+
+// Lógica do jogo com WebSocket
 // Lógica do jogo com WebSocket
 ioWebSocket.on('connection', (socket) => {
     let palavraSecreta;
@@ -85,40 +91,59 @@ ioWebSocket.on('connection', (socket) => {
         await sortearPalavra();
         socket.emit('atualizar', {
             dica,
-            palavra: palavraMascarada,
+            palavra: palavraMascarada.join(' '),
             tentativas,
         });
     });
 
     socket.on('tentativa', async (letra) => {
         let acertou = false;
-        for (let i = 0; i < palavraSecreta.length; i++) {
-            if (palavraSecreta[i].toLowerCase() === letra.toLowerCase()) {
-                palavraMascarada[i] = palavraSecreta[i];
-                acertou = true;
+        let i = 0;
+        let indiceMascarada = 0;
+    
+        while (i < palavraSecreta.length) {
+            if (/[a-zA-Z]/.test(palavraSecreta[i])) {
+                const letraNormalizadaSecreta = palavraSecreta[i].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const letraNormalizadaTentativa = letra.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        
+                if (letraNormalizadaSecreta === letraNormalizadaTentativa) {
+                    palavraMascarada[indiceMascarada] = palavraSecreta[i];
+                    acertou = true;
+                }
+                indiceMascarada++;
+            } else {
+                if (acertou) {
+                    palavraMascarada[indiceMascarada] = '';
+                }
+                indiceMascarada++;
             }
+            i++;
         }
-
+    
+    
+    
+    
         if (!acertou) {
             tentativas--;
         }
 
-        if (tentativas <= 0 || !palavraMascarada.includes('_')) {
-            socket.emit('resultado', !palavraMascarada.includes('_'));
+        if (tentativas <= 0 || todasLetrasPreenchidas(palavraMascarada)) {
+            socket.emit('resultado', todasLetrasPreenchidas(palavraMascarada));
             await sortearPalavra();
             socket.emit('atualizar', {
-              dica,
-              palavra: palavraMascarada,
-              tentativas,
+                dica,
+                palavra: palavraMascarada.join(' '),
+                tentativas,
             });
-          } else {
+        } else {
             socket.emit('atualizar', {
-              dica,
-              palavra: palavraMascarada,
-              tentativas,
+                dica,
+                palavra: palavraMascarada.join(' '),
+                tentativas,
             });
-          }
-          
+        }
     });
+
+
 
 });
