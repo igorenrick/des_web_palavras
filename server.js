@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -21,8 +22,8 @@ const Palavra = mongoose.model('Palavra', PalavraSchema);
 
 const app = express();
 app.use(cors());
-app.use('/adivinhacao-app', express.static('public/adivinhacao-app')); // Altere esta linha
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/adivinhacao-app', express.static(path.join(__dirname, 'public/adivinhacao-app')));
 
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -64,6 +65,11 @@ app.get('/lista', async (req, res) => {
     const palavras = await Palavra.find();
     res.json(palavras);
 });
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
+
 
 // Função auxiliar para verificar se todas as letras foram preenchidas
 function todasLetrasPreenchidas(palavraMascarada) {

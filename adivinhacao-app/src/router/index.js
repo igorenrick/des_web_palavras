@@ -4,21 +4,22 @@ import ConfiguraPalavras from '../components/ConfiguraPalavras.vue';
 
 const routes = [
   {
-    path: '/adivinhacao-app/',
-    name: 'Home',
+    path: '/',
+    name: 'Jogo',
     component: JogoPrincipal
   },
   {
-    path: '/adivinhacao-app/configura',
+    path: '/configura',
     name: 'Configura',
     component: ConfiguraPalavras
   }
 ];
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  base: '/adivinhacao-app/',
+  base: '/',
 });
 
 export default router;

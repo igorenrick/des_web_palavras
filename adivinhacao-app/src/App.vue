@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="header">
-      <router-link to="/adivinhacao-app">Jogo</router-link> |
-      <router-link to="/adivinhacao-app/configura">Configurar Palavras</router-link>
+      <router-link to="/">Jogo</router-link> |
+      <router-link to="/configura">Configurar Palavras</router-link>
     </div>
     <router-view />
   </div>
