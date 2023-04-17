@@ -20,6 +20,7 @@ export default {
       tentativas: 0,
       entrada: '',
       socket: null,
+      title: 'Jogo da Divinhação' // Título padrão da aplicação
     };
   },
   created() {
@@ -52,6 +53,9 @@ export default {
         this.entrada = '';
       }
     },
+  },
+  mounted() {
+    document.title = this.title; // Alterando o título da aba dinamicamente
   },
 };
 </script>
