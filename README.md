@@ -1,6 +1,9 @@
 # Jogo da Adivinhação de Palavras
+
 Projeto trabalho da disciplina DEC007 Programação para WEB - 2023.1
+
 UFSC Araranguá
+
 Igor Enrick de Carvalho - 18250348
 
 ### Para executar
