@@ -77,7 +77,6 @@ function todasLetrasPreenchidas(palavraMascarada) {
 }
 
 // Lógica do jogo com WebSocket
-// Lógica do jogo com WebSocket
 ioWebSocket.on('connection', (socket) => {
     let palavraSecreta;
     let dica;
@@ -126,9 +125,6 @@ ioWebSocket.on('connection', (socket) => {
             }
             i++;
         }
-
-
-
 
         if (!acertou) {
             tentativas--;
